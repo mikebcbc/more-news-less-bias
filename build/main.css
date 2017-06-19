@@ -1,2 +1,20 @@
 @import '~normalize.css';
 @import 'grid.css';
+
+.logo h1 {
+	text-align: center;
+}
+
+.filters .sort {
+	text-align: left;
+}
+
+.filters .filter {
+	text-align: right;
+}
+
+.articles ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 25px auto;
+}
