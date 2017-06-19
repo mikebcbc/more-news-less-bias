@@ -38,10 +38,12 @@ function addArticle(articles) {
 }
 
 function renderArticle(article) {
+	console.log(article);
 	let template = $(ARTICLE_TEMPLATE);
 	template.find("a").attr("href", article.url);
 	template.find("a").text(article.title);
 	$('.articles ul').append(template);
+	showArticles()
 }
 
 function inputArticle(articles) {
@@ -72,8 +74,20 @@ function showArticles() {
 			$('.article:lt(' + shown + ')').show();
 		}
 	})
-	console.log($('.article:visible').length);
+}
+
+function listenFilter() {
+	$('.filter input').keyup(() => {
+		let term = $('.filter input').val();
+		let articles = articleArray.filter((article) => {
+			return article.title.match(new RegExp(term, "i"));
+		})
+		$(".articles ul").empty();
+		articles.forEach((article)=> {
+			renderArticle(article);
+		})
+	})
 }
 
 $(getArticles(SOURCES_LIST, API_URL));
-$(showArticles());
+$(listenFilter());
