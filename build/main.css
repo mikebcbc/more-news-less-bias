@@ -1,6 +1,10 @@
 @import '~normalize.css';
 @import 'grid.css';
 
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
 .logo h1 {
 	text-align: center;
 }
