@@ -55,7 +55,7 @@ function getArticles(sources, url) {
 		$.ajax({
 			url: url + 'source=' + i + '&apiKey=71d63d411e7548b5a76d9cd92d80498f',
 			async: false,
-			success: function(res) {
+			success: (res)=> {
 				addArticle(res.articles);
 			}
 		});
@@ -63,4 +63,17 @@ function getArticles(sources, url) {
 	inputArticle(articleArray);
 }
 
+function showArticles() {
+	let shown = 50;
+	$('.article:lt(50)').show();
+	$(window).scroll(()=> {
+		if ($('body').height() <= ($(window).height() + $(window).scrollTop())) {
+			shown = $('.article:visible').length + 25;
+			$('.article:lt(' + shown + ')').show();
+		}
+	})
+	console.log($('.article:visible').length);
+}
+
 $(getArticles(SOURCES_LIST, API_URL));
+$(showArticles());
