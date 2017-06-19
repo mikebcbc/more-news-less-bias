@@ -25,7 +25,7 @@ const SOURCES_LIST = [
 
 const ARTICLE_TEMPLATE = (
 	"<li class='article'>" +
-		"<a href></a>" +
+		"<a href target='_blank'></a>" +
 	"</li>"
 );
 
@@ -37,15 +37,30 @@ function addArticle(articles) {
 	});
 }
 
+function renderArticle(article) {
+	let template = $(ARTICLE_TEMPLATE);
+	template.find("a").attr("href", article.url);
+	template.find("a").text(article.title);
+	$('.articles ul').append(template);
+}
+
+function inputArticle(articles) {
+	articles.forEach((article)=> {
+		return renderArticle(article);
+	})
+}
+
 function getArticles(sources, url) {
 	for (let i of sources) {
 		$.ajax({
 			url: url + 'source=' + i + '&apiKey=71d63d411e7548b5a76d9cd92d80498f',
+			async: false,
 			success: function(res) {
 				addArticle(res.articles);
 			}
 		});
 	}
+	inputArticle(articleArray);
 }
 
 $(getArticles(SOURCES_LIST, API_URL));
