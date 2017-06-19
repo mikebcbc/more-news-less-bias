@@ -29,15 +29,20 @@ const ARTICLE_TEMPLATE = (
 	"</li>"
 );
 
-let articles = [];
+let articleArray = [];
 
+function addArticle(articles) {
+	articles.forEach((article)=> {
+		articleArray.push(article)
+	});
+}
 
 function getArticles(sources, url) {
 	for (let i of sources) {
 		$.ajax({
 			url: url + 'source=' + i + '&apiKey=71d63d411e7548b5a76d9cd92d80498f',
 			success: function(res) {
-				console.log(res);
+				addArticle(res.articles);
 			}
 		});
 	}
