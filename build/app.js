@@ -2,7 +2,9 @@ require('../build/index.html');
 import css from './main.css';
 let $ = require('jquery');
 
-let SOURCES = [
+const API_URL = 'https://newsapi.org/v1/articles?';
+
+const SOURCES_LIST = [
 	'breitbart-news',
 	'bbc-news',
 	'bloomberg',
@@ -21,6 +23,24 @@ let SOURCES = [
 	'the-washington-post'
 ];
 
-$(()=>{
-	console.log('jQuery setup!');
-});
+const ARTICLE_TEMPLATE = (
+	"<li class='article'>" +
+		"<a href></a>" +
+	"</li>"
+);
+
+let articles = [];
+
+
+function getArticles(sources, url) {
+	for (let i of sources) {
+		$.ajax({
+			url: url + 'source=' + i + '&apiKey=71d63d411e7548b5a76d9cd92d80498f',
+			success: function(res) {
+				console.log(res);
+			}
+		});
+	}
+}
+
+$(getArticles(SOURCES_LIST, API_URL));
