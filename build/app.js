@@ -31,42 +31,37 @@ const ARTICLE_TEMPLATE = (
 
 let articleArray = [];
 
-function addArticle(articles) {
-	articles.forEach((article)=> {
-		articleArray.push(article)
-	});
-}
+let shown = 50;
 
 function renderArticle(article) {
-	console.log(article);
 	let template = $(ARTICLE_TEMPLATE);
 	template.find("a").attr("href", article.url);
 	template.find("a").text(article.title);
 	$('.articles ul').append(template);
-	showArticles()
-}
-
-function inputArticle(articles) {
-	articles.forEach((article)=> {
-		return renderArticle(article);
-	})
 }
 
 function getArticles(sources, url) {
-	for (let i of sources) {
-		$.ajax({
-			url: url + 'source=' + i + '&apiKey=71d63d411e7548b5a76d9cd92d80498f',
-			async: false,
-			success: (res)=> {
-				addArticle(res.articles);
-			}
-		});
-	}
-	inputArticle(articleArray);
+  Promise.all(sources.map((source)=>{
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url:`${url}source=${source}&apiKey=71d63d411e7548b5a76d9cd92d80498f`,
+        success: (res)=>{
+          resolve(res.articles);
+        }
+      });
+    });
+  })).then(values => {
+    articleArray = values.reduce((acc, curr)=>{
+      return acc.concat(curr);
+    }, []);
+    return articleArray;
+  }).then(articles => {
+    articles.forEach(renderArticle);
+    showArticles();
+  });
 }
 
 function showArticles() {
-	let shown = 50;
 	$('.article:lt(50)').show();
 	$(window).scroll(()=> {
 		if ($('body').height() <= ($(window).height() + $(window).scrollTop())) {
@@ -79,13 +74,11 @@ function showArticles() {
 function listenFilter() {
 	$('.filter input').keyup(() => {
 		let term = $('.filter input').val();
-		let articles = articleArray.filter((article) => {
-			return article.title.match(new RegExp(term, "i"));
-		})
 		$(".articles ul").empty();
-		articles.forEach((article)=> {
-			renderArticle(article);
-		})
+		articleArray.filter((article) => {
+			return article.title.match(new RegExp(term, "i"));
+		}).forEach(renderArticle);
+		$('.article:lt(50)').show();
 	})
 }
 
