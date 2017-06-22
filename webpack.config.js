@@ -1,16 +1,23 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
 	entry: [
-  	'./build/app'
+  	'./build/index.html'
   ],
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: "main.bundle.js"
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),
+		new HtmlWebpackPlugin({
+			template: './build/index.html'
+		}),
+		new webpack.DefinePlugin({
+			'process.env.NODE_ENV': JSON.stringify('production')
+		})
 	],
 	module: {
 		loaders: [

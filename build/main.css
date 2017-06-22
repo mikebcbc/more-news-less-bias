@@ -26,3 +26,17 @@ body {
 .article {
 	display: none;
 }
+
+.sort select, .filter input {
+	width: 200px;
+}
+
+@media (max-width: 769px) {
+	.sort select, .filter input {
+		width: 100%;
+	}
+	.filters .sort, .filters .filter {
+		text-align: center;
+		margin: 10px 0;
+	}
+}

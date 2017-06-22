@@ -1,6 +1,9 @@
-require('../build/index.html');
+if (process.env.NODE_ENV !== 'production') {
+	require('../build/index.html');
+}
 import css from './main.css';
 let $ = require('jquery');
+let moment = require('moment');
 
 const API_URL = 'https://newsapi.org/v1/articles?';
 
@@ -25,7 +28,8 @@ const SOURCES_LIST = [
 
 const ARTICLE_TEMPLATE = (
 	"<li class='article'>" +
-		"<a href target='_blank'></a>" +
+		"<a href target='_blank'></a> - " +
+		"<span class='date'></span>" +
 	"</li>"
 );
 
@@ -37,6 +41,7 @@ function renderArticle(article) {
 	let template = $(ARTICLE_TEMPLATE);
 	template.find("a").attr("href", article.url);
 	template.find("a").text(article.title);
+	template.find(".date").text(moment(article.publishedAt).format('h:mm a, MMM D'));
 	$('.articles ul').append(template);
 }
 
@@ -82,5 +87,32 @@ function listenFilter() {
 	})
 }
 
+function listenSort() {
+	const sortList = {
+		shuffle: (a, b) => {
+			return 0.5 - Math.random();
+		},
+		name: (a, b) => {
+			return a.title == b.title ? 0 : +(a.title > b.title) || -1;
+		},
+		date: (a, b) => {
+			return moment(b.publishedAt).diff(moment(a.publishedAt));
+		}
+	}
+
+	$('.sort select').change(() => {
+		let sortBy = $('.sort select').val();
+		$(".articles ul").empty();
+		articleArray.sort(sortList[sortBy]).forEach(renderArticle);
+		$(".article:lt(50)").show();
+	})
+}
+
 $(getArticles(SOURCES_LIST, API_URL));
 $(listenFilter());
+$(listenSort());
+
+
+
+
+
