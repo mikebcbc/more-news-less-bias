@@ -53,7 +53,7 @@ function getArticles(sources, url) {
         success: (res)=>{
           resolve(res.articles);
         }
-      });
+      })
     });
   })).then(values => {
     articleArray = values.reduce((acc, curr)=>{
