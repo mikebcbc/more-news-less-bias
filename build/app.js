@@ -111,8 +111,3 @@ function listenSort() {
 $(getArticles(SOURCES_LIST, API_URL));
 $(listenFilter());
 $(listenSort());
-
-
-
-
-
