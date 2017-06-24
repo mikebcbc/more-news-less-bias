@@ -51,6 +51,7 @@ function getArticles(sources, url) {
       $.ajax({
         url:`${url}source=${source}&apiKey=71d63d411e7548b5a76d9cd92d80498f`,
         success: (res)=>{
+        	console.log(source);
           resolve(res.articles);
         }
       })
@@ -108,6 +109,9 @@ function listenSort() {
 	})
 }
 
-$(getArticles(SOURCES_LIST, API_URL));
-$(listenFilter());
-$(listenSort());
+
+$(function(){
+	getArticles(SOURCES_LIST, API_URL);
+	listenFilter();
+	listenSort();
+});
