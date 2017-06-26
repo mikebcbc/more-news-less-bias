@@ -1,7 +1,6 @@
 if (process.env.NODE_ENV !== 'production') {
 	require('../build/index.html');
 }
-import css from './main.css';
 let $ = require('jquery');
 let moment = require('moment');
 
