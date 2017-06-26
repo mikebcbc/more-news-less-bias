@@ -13,10 +13,12 @@ body {
 
 .instructions, main {
 	flex: 1;
+	width: 50%;
 }
 
 .instruction-wrapper {
 	position: fixed;
+	width: inherit;
 }
 
 .filters .sort {
@@ -55,12 +57,29 @@ body {
 
 .sort select, .filter input {
 	width: 200px;
+	height: 40px;
+	border: none;
+	padding: 10px;
+	background: #F4EED8;
 }
 
 @media (max-width: 769px) {
+	.wrapper {
+		flex-direction: column;
+	}
+	
+	.instructions, main {
+		width: 100%;
+	}
+
+	.instruction-wrapper {
+		position: static;
+	}
+
 	.sort select, .filter input {
 		width: 100%;
 	}
+
 	.filters .sort, .filters .filter {
 		text-align: center;
 		margin: 10px 0;
