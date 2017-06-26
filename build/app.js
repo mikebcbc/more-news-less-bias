@@ -72,7 +72,7 @@ function showArticles() {
 	$(window).scroll(()=> {
 		if ($('body').height() <= ($(window).height() + $(window).scrollTop())) {
 			shown = $('.article:visible').length + 25;
-			$('.article:lt(' + shown + ')').show();
+			$('.article:lt(' + shown + ')');
 		}
 	})
 }
