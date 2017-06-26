@@ -28,8 +28,8 @@ const SOURCES_LIST = [
 
 const ARTICLE_TEMPLATE = (
 	"<li class='article'>" +
-		"<a href target='_blank'></a> - " +
-		"<span class='date'></span>" +
+		"<a href target='_blank'></a>" +
+		"<div class='date'></div>" +
 	"</li>"
 );
 

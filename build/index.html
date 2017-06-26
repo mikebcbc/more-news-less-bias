@@ -8,30 +8,38 @@
     <link rel="stylesheet" href="main.css">
   </head>
   <body>
-
-	<div class="row logo">
-		<div class="col-12">
-			<h1>More News, Less Bias</h1>
-		</div>
-	</div>
-
-	<div class="row filters">
-		<div class="col-6 sort">
-			<select>
-				<option value="shuffle">Shuffle</option>
-				<option value="name">Name</option>
-				<option value="date">Date</option>
-			</select>
-		</div>
-		<div class="col-6 filter">
-			<input type="text" placeholder="Search">
-		</div>
-	</div>
-	<div class="row articles">
-		<div class="col-12">
-			<ul>
-			</ul>
-		</div>
+  <div class="wrapper">
+	  <div class="instructions">
+	  	<div class="instruction-wrapper">
+		  	<div class="row info">
+		  		<h1>What is "More News, Less Bias"?</h1>
+		  		<p>"More News, Less Bias" is a tool to help eliminate, or at least blur, the large bias that many news sources have.</p>
+		  		<p>In today's world, it feels like it's almost impossible to find a news outlet that doesn't lean in one direction or another - neautrality in journalism just doesn't exist anymore.</p>
+		  		<p>With "More News, Less Bias", we hide where the source is coming from until you click into an articles. That way, you'll be able to draw your own opinions as you read through the headlines.</p>
+		  		<p>To get started, simply start scrolling through until you find a headline you like! If you're looking for headlines that contain as specific word, use our live search function. Additionally, you can sort the headlines alphabetically, by date, or just randomly shuffle them around!</p>
+		  	</div>
+				<div class="row filters">
+					<div class="col-6 sort">
+						<select>
+							<option value="shuffle">Shuffle</option>
+							<option value="name">Name</option>
+							<option value="date">Date</option>
+						</select>
+					</div>
+					<div class="col-6 filter">
+						<input type="text" placeholder="Search">
+					</div>
+				</div>
+			</div>
+	  </div>
+		<main role="main">
+			<div class="row articles">
+				<div class="col-12">
+					<ul>
+					</ul>
+				</div>
+			</div>
+		</main>
 	</div>
 
   <script type="text/javascript" src="main.bundle.js"></script>
