@@ -26,9 +26,14 @@ const SOURCES_LIST = [
 ];
 
 const ARTICLE_TEMPLATE = (
-	"<li class='article'>" +
-		"<a href target='_blank'></a>" +
-		"<div class='date'></div>" +
+	"<li class='article-item'>" +
+	"<div class='article'>" +
+			"<div class='article-image' />" +
+			"<div class='title-container'>" +
+				"<a href target='_blank'></a>" +
+				"<div class='date'></div>" +
+			"</div>" +
+		"</div>" +
 	"</li>"
 );
 
@@ -38,6 +43,8 @@ let shown = 50;
 
 function renderArticle(article) {
 	let template = $(ARTICLE_TEMPLATE);
+	template.attr("onclick", "window.open('" + article.url + "', '_blank')");
+	template.find(".article-image").css("background-image", "url(" + article.urlToImage + ")");
 	template.find("a").attr("href", article.url);
 	template.find("a").text(article.title);
 	template.find(".date").text(moment(article.publishedAt).format('h:mm a, MMM D'));
@@ -50,7 +57,6 @@ function getArticles(sources, url) {
       $.ajax({
         url:`${url}source=${source}&apiKey=71d63d411e7548b5a76d9cd92d80498f`,
         success: (res)=>{
-        	console.log(source);
           resolve(res.articles);
         }
       })
@@ -67,11 +73,11 @@ function getArticles(sources, url) {
 }
 
 function showArticles() {
-	$('.article:lt(50)').show();
+	$('.article-item:lt(50)').show();
 	$(window).scroll(()=> {
 		if ($('body').height() <= ($(window).height() + $(window).scrollTop())) {
-			shown = $('.article:visible').length + 25;
-			$('.article:lt(' + shown + ')').show();
+			shown = $('.article-item:visible').length + 25;
+			$('.article-item:lt(' + shown + ')').show();
 		}
 	})
 }
@@ -83,7 +89,7 @@ function listenFilter() {
 		articleArray.filter((article) => {
 			return article.title.match(new RegExp(term, "i"));
 		}).forEach(renderArticle);
-		$('.article:lt(50)').show();
+		$('.article-item:lt(50)').show();
 	})
 }
 
@@ -104,7 +110,7 @@ function listenSort() {
 		let sortBy = $('.sort select').val();
 		$(".articles ul").empty();
 		articleArray.sort(sortList[sortBy]).forEach(renderArticle);
-		$(".article:lt(50)").show();
+		$(".article-item:lt(50)").show();
 	})
 }
 
