@@ -83,14 +83,18 @@ function showArticles() {
 }
 
 function listenFilter() {
-	$('.filter input').keyup(() => {
-		let term = $('.filter input').val();
+	$('.filter input').keyup(filter);
+}
+
+function filter() {
+	let term = $('.filter input').val();
+	if (term.trim() != '') {
 		$(".articles ul").empty();
 		articleArray.filter((article) => {
 			return article.title.match(new RegExp(term, "i"));
 		}).forEach(renderArticle);
-		$('.article-item:lt(50)').show();
-	})
+	}
+	$('.article-item:lt(50)').show();
 }
 
 function listenSort() {
@@ -110,7 +114,7 @@ function listenSort() {
 		let sortBy = $('.sort select').val();
 		$(".articles ul").empty();
 		articleArray.sort(sortList[sortBy]).forEach(renderArticle);
-		$(".article-item:lt(50)").show();
+		filter();
 	})
 }
 
